@@ -1,4 +1,6 @@
-//SysInternals Procmon saves filters in the registry under "HKEY_CURRENT_USER\SOFTWARE\Sysinternals\Process Monitor\"
+//SysInternals Procmon saves filters in the registry under
+//HKEY_CURRENT_USER\SOFTWARE\Sysinternals\Process Monitor\
+
 //Filters will be saved as Filter#<n>:<name>
 
 enum FilterCategory : u8
@@ -35,6 +37,7 @@ struct FilterSave
 };
 
 FilterSave data @ 0x00;
+
 
 
 
