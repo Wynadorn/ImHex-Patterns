@@ -11,7 +11,7 @@ Hex patterns, include patterns and magic files for the use with the ImHex Hex Ed
 | BMP  | `image/bmp` | `patterns/bmp.hexpat` | OS2/Windows Bitmap files |
 | ELF  | `application/x-executable`, `application/x-sharedlib` | `patterns/elf.hexpat` | ELF header in elf binaries |
 | PE   | `application/x-dosexec` | `patterns/pe.hexpat` | PE header, COFF header, Standard COFF fields and Windows Specific fields |
-| Intel HEX  | `text/plain` | `patterns/intel_hex.hexpat` | [Intel hexadecimal object file format definition]("https://en.wikipedia.org/wiki/Intel_HEX") |
+| Intel HEX  | | `patterns/intel_hex.hexpat` | [Intel hexadecimal object file format definition]("https://en.wikipedia.org/wiki/Intel_HEX") |
 | MIDI | `audio/midi` | `patterns/midi.hexpat` | MIDI header, event fields provided |
 | WAV  | `audio/wav`  | `patterns/wav.hexpat`  | RIFF header, WAVE header, PCM header |
 | ZIP  | `application/zip` | `patterns/zip.hexpat` | End of Central Directory Header, Central Directory File Headers |
@@ -31,6 +31,7 @@ Hex patterns, include patterns and magic files for the use with the ImHex Hex Ed
 | ISO | | `patterns/iso.hexpat` | ISO 9660 file system |
 | VDF | | `patterns/vdf.hexpat` | Binary Value Data Format (.vdf) files | 
 | IP | | `patterns/ip.hexpat` | Ethernet II Frames (IP Packets) | 
+| UF2 | | `patterns/uf2.hexpat` | [USB Flashing Format](https://github.com/microsoft/uf2) | 
 
 ### Scripts
 
@@ -83,4 +84,7 @@ Hex patterns, include patterns and magic files for the use with the ImHex Hex Ed
 
 ## Contributing
 
-If you want to contribute a file to the database, please make a PR which adds it to the right folder and adds a new entry to the table in this readme. Thanks a lot :)
+If you want to contribute a file to the database, please make a PR which adds it to the right folder and adds a new entry to the table in this readme. 
+To take advantage of the automatic pattern testing, please consider adding a test file named `<pattern_name>.hexpat.<extension>` to the `/tests/patterns/test_data` directory. Try to keep this file as small as possible so the repository doesn't become excessively large
+
+Thanks a lot :)

@@ -1,0 +1,65 @@
+name: "Unit Tests"
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  tests:
+    name: 🧪 Unit Tests
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: 🧰 Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: recursive
+
+    - name: ⬇️ Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y       \
+            build-essential       \
+            gcc-11                \
+            g++-11                \
+            lld                   \
+            ${PKGCONF:-}          \
+            cmake                 \
+            make                  \
+            python3               \
+            python3-pip
+        
+        sudo pip install jsonschema
+
+    - name: 🛠️ Build
+      run: |
+        cd tests
+        mkdir -p build
+        cd build
+        CC=gcc-11 CXX=g++-11 cmake              \
+          -DCMAKE_C_FLAGS="-fuse-ld=lld"        \
+          -DCMAKE_CXX_FLAGS="-fuse-ld=lld"      \
+          -DLIBPL_ENABLE_TESTS=OFF              \
+          ..
+        make -j4
+
+    - name: 🧪 Perform Unit Tests
+      run: |
+        cd tests/build
+        ctest
+    - name: 📎 Validate JSON Files
+      run: |
+        cd constants
+        for file in ./[!_schema.json]*; do jsonschema -i $file _schema.json; done
+        cd ..
+        
+        cd tips
+        for file in ./[!_schema.json]*; do jsonschema -i $file _schema.json; done
+        cd ..
